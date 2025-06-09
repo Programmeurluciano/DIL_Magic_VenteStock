@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 
-const CardDuJour: FC<ProductInput> = ({libelle,prix,quantiteEnStock,reference }) => {
+const CardDuJour: FC<ProductInput> = ({libelle,prix,quantiteEnStock}) => {
   return (
     <Link to={""} className="box-card du-jour-box ">
       <div className="du-jour-header">
