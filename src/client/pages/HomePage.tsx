@@ -1,37 +1,37 @@
-import type { FC } from "react"
+import { useEffect, useState, type FC } from "react"
 import Card from "../components/Card"
 import type { ProductInput } from "../../types/product.type"
 import CardDuJour from "../components/CardDuJour"
 import LoginForm from "../components/LoginForm"
-
-const data : Array<ProductInput >=[
-    {
-      "id": 4,
-      "reference": "PROD004",
-      "libelle": "Baguette Mystique",
-      "estDuJour": true,
-      "prix": 150000,
-      "quantiteEnStock": 15
-    },
-    {
-      "id": 5,
-      "reference": "PROD005",
-      "libelle": "Potion d'Invisibilité",
-      "estDuJour": false,
-      "prix": 75000,
-      "quantiteEnStock": 30
-    },
-    {
-      "id": 6,
-      "reference": "PROD006",
-      "libelle": "Grimoire des Anciens",
-      "estDuJour": true,
-      "prix": 300000,
-      "quantiteEnStock": 5
-    }
-  ]
+import { getAllProducts } from "../../services/product.service"
 
 const HomePage: FC = () => {
+
+  const [data, setData] = useState<ProductInput[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allProducts = await getAllProducts({ page: 0, size: 10, sort: 'id', direction: 'ASC' })
+        
+        const produitsDuJour = allProducts.filter(p => p.estDuJour)
+        const autresProduits = allProducts.filter(p => !p.estDuJour)
+
+        const selection: ProductInput[] = []
+
+        if (produitsDuJour.length > 0) {
+          selection.push(produitsDuJour[0])
+        }
+
+        selection.push(...autresProduits.slice(0, 3 - selection.length)) 
+
+        setData(selection)
+      } catch (error) {
+        console.error("Erreur de récupération des produits :", error)
+      }
+    }
+    fetchData()
+  }, [])
 
   return (
     <div className="container">
