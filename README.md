@@ -57,6 +57,62 @@ Analyse les fichiers du projet à l’aide d’ESLint selon les règles configur
 Servez localement le build de production depuis le dossier `dist`.  
 Pratique pour vérifier le rendu final avant déploiement.
 
+## Structure du projet
+```text
+src/
+├── admin/                         # Partie admin (interface back-office)
+│   ├── components/                # UI spécifique admin (table, modale…)
+│   ├── layout/                    # Sidebar, AdminNavbar
+│   ├── pages/                     # Dashboard, gestion produits/commandes
+│   ├── routes/                    # Routing admin
+│   └── store/                     # Stores spécifiques admin
+│
+├── client/                        # Partie visible par les clients
+│   ├── components/                # UI client (cards, sliders…)
+│   ├── layout/                    # Header, Footer client
+│   ├── pages/                     # Accueil, Produit, Panier, Checkout
+│   ├── routes/                    # Routing client
+│   └── store/                     # Stores client (panier, produits…)
+│
+├── components/                    # UI partagée (modale, loader, button…)
+│
+├── constants/                     # Constantes globales (routes, configs…)
+│
+├── features/                      # Logique partagée (auth, produits…)
+│   ├── auth/
+│   ├── products/
+│   ├── cart/
+│   ├── orders/
+│   └── user/
+│
+├── hooks/                         # Hooks personnalisés (useDebounce, etc.)
+│
+├── lib/                           # Fonctions utilitaires (format, validation…)
+│
+├── services/                      # Gestion des appels API
+│   ├── apiClient.ts               # Axios instance (token, baseURL…)
+│   ├── auth.service.ts
+│   ├── product.service.ts
+│   ├── cart.service.ts
+│   ├── order.service.ts
+│   └── user.service.ts
+│
+├── store/                         # Stores globaux (UI, thème…)
+│   ├── uiStore.ts
+│   └── themeStore.ts
+│
+├── types/                         # Types TypeScript partagés
+│   ├── product.ts
+│   ├── user.ts
+│   └── index.ts
+│
+├── i18n/                          # Traductions
+│
+├── App.tsx                        # Composant principal (routes centralisées)
+├── main.tsx                       # Point d'entrée Vite
+└── vite-env.d.ts
+````
+
 ## Étendre la configuration ESLint
 
 La configuration actuelle (`eslint.config.js`) fournit un ensemble de règles de base.  
@@ -85,3 +141,4 @@ export default tseslint.config({
   },
   // ... autres configurations
 });
+
