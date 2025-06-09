@@ -5,6 +5,35 @@ import CardDuJour from "../components/CardDuJour"
 import LoginForm from "../components/LoginForm"
 import { getAllProducts } from "../../services/product.service"
 
+
+const dataTest : Array<ProductInput >=[
+    {
+      "id": 4,
+      "reference": "PROD004",
+      "libelle": "Baguette Mystique",
+      "estDuJour": true,
+      "prix": 150000,
+      "quantiteEnStock": 15
+    },
+    {
+      "id": 5,
+      "reference": "PROD005",
+      "libelle": "Potion d'Invisibilité",
+      "estDuJour": false,
+      "prix": 75000,
+      "quantiteEnStock": 30
+    },
+    {
+      "id": 6,
+      "reference": "PROD006",
+      "libelle": "Grimoire des Anciens",
+      "estDuJour": true,
+      "prix": 300000,
+      "quantiteEnStock": 5
+    }
+  ]
+
+
 const HomePage: FC = () => {
 
   const [data, setData] = useState<ProductInput[]>([])
@@ -21,6 +50,11 @@ const HomePage: FC = () => {
 
         if (produitsDuJour.length > 0) {
           selection.push(produitsDuJour[0])
+        }else {
+          const testProduitDuJour = dataTest.find(p => p.estDuJour)
+          if (testProduitDuJour) {
+            selection.push(testProduitDuJour)
+          }
         }
 
         selection.push(...autresProduits.slice(0, 3 - selection.length)) 
@@ -28,6 +62,7 @@ const HomePage: FC = () => {
         setData(selection)
       } catch (error) {
         console.error("Erreur de récupération des produits :", error)
+          setData(dataTest.slice(0, 3))
       }
     }
     fetchData()
