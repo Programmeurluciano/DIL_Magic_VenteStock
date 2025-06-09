@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 
 
 
-const Card: FC<ProductInput> = ({libelle,prix,quantiteEnStock,reference }) => {
+const Card: FC<ProductInput> = ({libelle,prix,quantiteEnStock }) => {
   return (
     <Link to={""} className="box-card">
       <img src="/baguette-mystique-pierre.jpg" alt={libelle} className="img-fluid" />
