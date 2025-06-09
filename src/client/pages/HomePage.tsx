@@ -1,12 +1,35 @@
 import type { FC } from "react"
-import type { ProductInput } from "../components/Card"
 import Card from "../components/Card"
+import type { ProductInput } from "../../types/product.type"
+import CardDuJour from "../components/CardDuJour"
+import LoginForm from "../components/LoginForm"
 
-const data : Array<ProductInput >= [
-    {title:"title test" , price:200 , stock: 30 , image: ""  },
-    {title:"title test" , price:200 , stock: 30 , image: ""  },
-    {title:"title test" , price:200 , stock: 30 , image: ""  }
-]
+const data : Array<ProductInput >=[
+    {
+      "id": 4,
+      "reference": "PROD004",
+      "libelle": "Baguette Mystique",
+      "estDuJour": true,
+      "prix": 150000,
+      "quantiteEnStock": 15
+    },
+    {
+      "id": 5,
+      "reference": "PROD005",
+      "libelle": "Potion d'Invisibilité",
+      "estDuJour": false,
+      "prix": 75000,
+      "quantiteEnStock": 30
+    },
+    {
+      "id": 6,
+      "reference": "PROD006",
+      "libelle": "Grimoire des Anciens",
+      "estDuJour": true,
+      "prix": 300000,
+      "quantiteEnStock": 5
+    }
+  ]
 
 const HomePage: FC = () => {
 
@@ -15,27 +38,25 @@ const HomePage: FC = () => {
         <div className="row">
             {
                 data.map((item , index) => {
+                    console.log(index);
+                    
+                    if ( item.estDuJour) {
+                        return (
+                            <div className="col-lg-4" key={item.id}>
+                                <CardDuJour  reference={item.reference} libelle={item.libelle} prix={item.prix} quantiteEnStock={item.quantiteEnStock} id={item.id} estDuJour={item.estDuJour}  />
+                            </div>
+                        )
+                    }
+
                     return (
-                        <div className="col-lg-4">
-                            <Card key={index} image={item.image}   title={item.title}   price={item.price}   stock={item.stock}  />
+                        <div className="col-lg-4" key={item.id}>
+                            <Card reference={item.reference} libelle={item.libelle} prix={item.prix} quantiteEnStock={item.quantiteEnStock} id={item.id} estDuJour={item.estDuJour}  />
                         </div>
                     )
                 })
             }
-            <div className="col-lg-8 offset-lg-2">
-                <p>Entrez dans le sanctuaire en révélant votre indentité magique!!!</p>
-                <form action="">
-                    <div className="mt-3">
-                        <input type="text" className="form-control" placeholder="votre pseudo"/>
-                    </div>
-                    <div className="mt-3">
-                        <input type="text" className="form-control" placeholder="votre mot de passe"/>
-                    </div>
-                    <div className="mt-3">
-                        <button type="submit" className="btn btn-primary">Connexion magique</button>
-                    </div>
-                </form>
-            </div>
+            <LoginForm/>
+            
         </div>
     </div>
   )

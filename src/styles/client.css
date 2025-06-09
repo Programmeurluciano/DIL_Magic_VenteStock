@@ -1,0 +1,86 @@
+body {
+    background-color: rgba(251,224,200,255);
+    font-family: "MedievalSharp", cursive;
+}
+
+.logo {
+    font-size: 50px;
+}
+
+header p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.box-card {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    color: unset;
+    background-color:rgb(215, 179, 146) ;
+    width: 90%;
+    margin: auto;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 100px;
+
+}
+
+.prix , .stock {
+    font-size: 20px;
+}
+.mt-6{
+      margin-top: 100px;
+      margin-bottom: 100px;
+}
+.box-card > .produit-info {
+    padding: 10px;
+}
+.du-jour-box {
+     background-color: #ffdd87;
+}
+
+.du-jour-header {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: #ffdd87;
+    top: -50px;
+   font-weight: 700;
+   font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width:992px) {
+    .box-card {
+        margin-top: 40px;
+    }
+    .du-jour-box {
+        margin-top: 80px;
+    }
+}
+
+.form-magique input {
+    background-color: transparent;
+    border: solid 2px black;
+    padding: 15px;
+     font-size: 18px;
+}
+
+
+.form-magique input::placeholder {
+    color: black;
+    font-size: 18px;
+    font-family: inherit;
+}
+
+.btn-magique {
+    background-color:rgb(215, 179, 146) ;
+    border: solid 2px black;
+    padding: 15px 150px ;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+}

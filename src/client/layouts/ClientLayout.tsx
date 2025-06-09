@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import Footer from "./Footer"
 import Header from "./Header"
 import type { FC } from "react"
+import "../../styles/client.css"
 
 const ClientLayout: FC = () => {
   return (
@@ -10,7 +11,6 @@ const ClientLayout: FC = () => {
       <main>
         <Outlet />
       </main>
-        
       <Footer />
     </>
   )
