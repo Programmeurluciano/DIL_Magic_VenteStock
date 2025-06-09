@@ -1,54 +1,87 @@
-# React + TypeScript + Vite
+# DIL Magic VenteStock
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Ce projet est une application React construite avec Vite et TypeScript. Il fournit une configuration minimale pour faire fonctionner React avec Vite, le rechargement à chaud des modules (HMR) et quelques règles ESLint. Cette configuration utilise SWC pour un rafraîchissement rapide.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Stack Technique
 
-## Expanding the ESLint configuration
+*   **React 19**
+*   **TypeScript**
+*   **Vite** (avec [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) utilisant [SWC](https://swc.rs/) pour le Fast Refresh)
+*   **ESLint**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Bien démarrer
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### Prérequis
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+*   Node.js (v18.x ou v20.x ou plus recommandé)
+*   npm (inclus avec Node.js)
+
+### Installation
+
+1.  Cloner le dépôt :
+    ```bash
+    git clone https://github.com/programmeurluciano/DIL_Magic_VenteStock.git
+    ```
+2.  Aller dans le dossier du projet :
+    ```bash
+    cd DIL_Magic_VenteStock
+    ```
+3.  Installer les dépendances :
+    ```bash
+    npm install
+    ```
+
+## Scripts Disponibles
+
+Dans le dossier du projet, vous pouvez exécuter les scripts suivants :
+
+### `npm run dev`
+
+Lance l’application en mode développement avec Vite.  
+Ouvrez [http://localhost:5173](http://localhost:5173) (ou un autre port si 5173 est occupé) pour la voir dans le navigateur.  
+La page se rechargera si vous effectuez des modifications. Vous verrez également les erreurs ESLint dans la console.
+
+### `npm run build`
+
+Construit l’application pour la production dans le dossier `dist`.  
+Il assemble correctement React en mode production et optimise le build pour de meilleures performances.  
+Ce script exécute d’abord `tsc -b` pour vérifier la compilation TypeScript.
+
+### `npm run lint`
+
+Analyse les fichiers du projet à l’aide d’ESLint selon les règles configurées.
+
+### `npm run preview`
+
+Servez localement le build de production depuis le dossier `dist`.  
+Pratique pour vérifier le rendu final avant déploiement.
+
+## Étendre la configuration ESLint
+
+La configuration actuelle (`eslint.config.js`) fournit un ensemble de règles de base.  
+Si vous développez une application pour la production, il est recommandé d’activer les règles de lint utilisant les types :
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import tseslint from 'typescript-eslint';
 
 export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+  // ... autres configurations
+  extends: [
+    // Remplacez ...tseslint.configs.recommended ou js.configs.recommended par ceci
+    ...tseslint.configs.recommendedTypeChecked,
+    // Optionnel : utilisez ceci pour des règles plus strictes
+    // ...tseslint.configs.strictTypeChecked,
+    // Optionnel : ajoutez ceci pour des règles de style
+    // ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // ... autres languageOptions
+    parserOptions: {
+      project: true, // ou ['./tsconfig.app.json', './tsconfig.node.json']
+      tsconfigRootDir: import.meta.dirname,
+    },
   },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+  // ... autres configurations
+});
