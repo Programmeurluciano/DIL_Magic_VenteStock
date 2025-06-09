@@ -1,6 +1,6 @@
 body {
-    background-color: rgba(251,224,200,255);
-    font-family: "MedievalSharp", cursive;
+    background-color: rgba(251,224,200,255) !important;
+    font-family: "MedievalSharp", cursive !important;
 }
 
 .logo {
@@ -84,3 +84,12 @@ header p {
     color: black !important;
     font-weight: bold !important;
 }
+
+/* .btn-magique {
+    background-color:rgb(215, 179, 146);
+    border: solid 2px black;
+    padding: 15px 150px;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+} */
