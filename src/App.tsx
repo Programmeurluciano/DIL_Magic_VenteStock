@@ -5,7 +5,6 @@ function App() {
   return (
     <Routes>
       {ClientRoutes}
-      {ClientRoutes}
     </Routes>
   )
 }

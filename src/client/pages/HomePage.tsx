@@ -4,6 +4,7 @@ import type { ProductInput } from "../../types/product.type"
 import CardDuJour from "../components/CardDuJour"
 import LoginForm from "../components/LoginForm"
 import { getAllProducts } from "../../services/product.service"
+import { useAuthStore } from "../../store/auth.store";
 
 
 const dataTest : Array<ProductInput >=[
@@ -37,6 +38,7 @@ const dataTest : Array<ProductInput >=[
 const HomePage: FC = () => {
 
   const [data, setData] = useState<ProductInput[]>([])
+  const user = useAuthStore((state) => state.user)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,7 +92,7 @@ const HomePage: FC = () => {
                     )
                 })
             }
-            <LoginForm/>
+            {!user && <LoginForm />}
             
         </div>
     </div>
