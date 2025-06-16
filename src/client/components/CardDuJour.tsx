@@ -1,39 +1,109 @@
-import type { FC } from "react"
-import type { ProductInput } from "../../types/product.type"
-import { Link } from "react-router-dom";
+import type { FC } from "react";
+import type { ProductInput } from "../../types/product.type";
 import { useAuthStore } from "../../store/auth.store";
+import { useState } from "react";
+import Modal from "./Modal";
 
+interface CardDuJourProps extends ProductInput {
+  onAddToCart: (productId: number, quantity: number) => void;
+}
 
+const CardDuJour: FC<CardDuJourProps> = ({
+  id,
+  libelle,
+  prix,
+  quantiteEnStock,
+  onAddToCart,
+}) => {
+  const user = useAuthStore((state) => state.user);
+  const [quantity, setQuantity] = useState<number | "">("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
 
-const CardDuJour: FC<ProductInput> = ({libelle,prix,quantiteEnStock}) => {
+  const handleAddToCart = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    const user = useAuthStore((state) => state.user)
+    const qty = Number(quantity);
+    if (!Number.isInteger(qty) || qty <= 0) {
+      setModalMessage("Veuillez entrer une quantité valide supérieure à 0.");
+      setShowModal(true);
+      return;
+    }
+
+    if (qty > quantiteEnStock) {
+      setModalMessage(
+        `Désolé, il ne reste que ${quantiteEnStock} ${libelle} en stock.`
+      );
+      setShowModal(true);
+      return;
+    }
+
+    try {
+      onAddToCart(quantity);
+      setModalMessage(
+        `${qty} ${libelle} a été ajouté à votre panier avec succès !`
+      );
+      setShowModal(true);
+      setQuantity("");
+    } catch (error) {
+      setModalMessage("Une erreur est survenue lors de l'ajout au panier.");
+      setShowModal(true);
+      console.error(error);
+    }
+  };
 
   return (
-    <Link to={""} className="box-card du-jour-box ">
-      <div className="du-jour-header">
-       Produit du jour
-      </div>
-      <img src="/baguette-mystique-pierre.jpg" alt={libelle} className="img-fluid" />
-      {/* <img src={image} alt={title} className="img-fluid" /> */}
-      <div className="produit-info">
+    <>
+      <div className="box-card du-jour-box">
+        <div className="du-jour-header">Produit du jour</div>
+        <img
+          src={id+".jpg"}
+          alt={libelle}
+          className="img-fluid"
+        />
+        <div className="produit-info">
           <h2>{libelle}</h2>
           <p className="prix">{prix} Gondariar</p>
           <p className="stock">{quantiteEnStock} en stock</p>
+
           {user && (
-            <form action="">
+            <form onSubmit={handleAddToCart}>
               <div className="mt-3">
-                <label htmlFor="quantity">quantité :</label>
-                <input type="number" className="form-control"  min="0" max={quantiteEnStock} />
+                <label htmlFor="quantity">Quantité :</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  value={quantity === "" ? "" : String(quantity)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    const numeric = Number(val);
+                    if (val === "" || Number.isNaN(numeric)) {
+                      setQuantity("");
+                    } else {
+                      setQuantity(numeric);
+                    }
+                  }}
+                />
               </div>
               <div className="mt-3">
-                <button type="submit" className="btn">Ajouter Panier</button>
+                <button type="submit" className="btn">
+                  Ajouter Panier
+                </button>
               </div>
             </form>
-           )}
-     </div>
-    </Link>
-  )
-}
+          )}
+        </div>
+      </div>
+
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title={modalMessage.includes("succès") ? "Succès" : "Erreur"}
+      >
+        <p>{modalMessage}</p>
+      </Modal>
+    </>
+  );
+};
 
 export default CardDuJour;
