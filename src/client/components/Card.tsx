@@ -5,7 +5,7 @@ import { useState } from "react"
 import Modal from "./Modal"
 
 interface CardProps extends ProductInput {
-  onAddToCart: undefined | ((productId: number, quantity: number) => void )
+  onAddToCart: undefined | (( quantity: number) => void )
 }
 
 const Card: FC<CardProps> = ({ id, libelle, prix, quantiteEnStock, onAddToCart }) => {
@@ -33,7 +33,7 @@ const Card: FC<CardProps> = ({ id, libelle, prix, quantiteEnStock, onAddToCart }
 
     try {
       if(onAddToCart) {
-       onAddToCart(id , qty);
+       onAddToCart(qty);
      }
       setModalMessage(`${qty} ${libelle} a été ajouté à votre panier avec succès !`)
       setShowModal(true)
