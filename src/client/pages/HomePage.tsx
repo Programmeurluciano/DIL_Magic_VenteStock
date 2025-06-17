@@ -4,7 +4,7 @@ import type { ProductInput } from "../../types/product.type"
 import CardDuJour from "../components/CardDuJour"
 import LoginForm from "../components/LoginForm"
 import Modal from "../components/Modal"
-import { useAuthStore } from "../../store/auth.store"
+// import { useAuthStore } from "../../store/auth.store"
 
 const limitedDataTest: Array<ProductInput> = [
   {

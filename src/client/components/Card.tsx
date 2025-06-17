@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import type { ProductInput } from "../../types/product.type"
-import { useAuthStore } from "../../store/auth.store"
+// import { useAuthStore } from "../../store/auth.store"
 import { useState } from "react"
 import Modal from "./Modal"
 
