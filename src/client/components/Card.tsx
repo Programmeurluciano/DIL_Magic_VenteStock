@@ -5,11 +5,12 @@ import { useState } from "react"
 import Modal from "./Modal"
 
 interface CardProps extends ProductInput {
-  onAddToCart: (productId: number, quantity: number) => void
+  onAddToCart: undefined | ((productId: number, quantity: number) => void )
 }
 
 const Card: FC<CardProps> = ({ id, libelle, prix, quantiteEnStock, onAddToCart }) => {
-  const user = useAuthStore((state) => state.user)
+  // const user = useAuthStore((state) => state.user)
+  const user  = localStorage.getItem("user")
   const [quantity, setQuantity] = useState<number | "">("")
   const [showModal, setShowModal] = useState<boolean>(false)
   const [modalMessage, setModalMessage] = useState<string>("")
@@ -31,7 +32,9 @@ const Card: FC<CardProps> = ({ id, libelle, prix, quantiteEnStock, onAddToCart }
     }
 
     try {
-      onAddToCart(quantity)
+      if(onAddToCart) {
+       onAddToCart(id , qty);
+     }
       setModalMessage(`${qty} ${libelle} a été ajouté à votre panier avec succès !`)
       setShowModal(true)
       setQuantity("")
